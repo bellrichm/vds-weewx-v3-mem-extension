@@ -26,7 +26,7 @@ class MemoryMonitorInstaller(ExtensionInstaller):
             config={
                 'MemoryMonitor': {
                     'data_binding': 'mem_binding',
-                    'process': 'weewxd'},
+                    'max_age': 2592000},
                 'DataBindings': {
                     'mem_binding': {
                         'database': 'mem_sqlite',

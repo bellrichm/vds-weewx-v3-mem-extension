@@ -78,7 +78,7 @@ import weewx
 import weeutil.weeutil
 from weewx.engine import StdService
 
-VERSION = "0.1"
+VERSION = "0.1-rmb"
 
 def logmsg(level, msg):
     syslog.syslog(level, 'mem: %s' % msg)
@@ -108,7 +108,6 @@ class MemoryMonitor(StdService):
         super(MemoryMonitor, self).__init__(engine, config_dict)
 
         d = config_dict.get('MemoryMonitor', {})
-        self.process = d.get('process', 'weewxd')
         self.max_age = weeutil.weeutil.to_int(d.get('max_age', 2592000))
         self.page_size = resource.getpagesize()
 
@@ -144,9 +143,8 @@ class MemoryMonitor(StdService):
         if self.last_ts is not None:
             self.save_data(self.get_data(now, self.last_ts))
         self.last_ts = now
-        #-- TBD: make this tunable on/off via variable
-        #-- if self.max_age is not None:
-        #--     self.prune_data(now - self.max_age)
+        if self.max_age is not None:
+            self.prune_data(now - self.max_age)
 
     def save_data(self, record):
         """save data to database"""
