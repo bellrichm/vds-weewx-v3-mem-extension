@@ -157,7 +157,7 @@ class MemoryMonitor(StdService):
         try:
             # sqlite databases need some help to stay small
             self.dbm.getSql('vacuum')
-        except Exception, e:
+        except Exception as e:
             pass
 
     COLUMNS = re.compile('[\S]+\s+[\d]+\s+[\d.]+\s+[\d.]+\s+([\d]+)\s+([\d]+)')
@@ -193,11 +193,11 @@ class MemoryMonitor(StdService):
                 # Unpack the tuple:
             (size, resident, share, text, lib, data, dt) = mem_tuple
             mb = 1024 * 1024
-            record['mem_size']  = float(size)     * self.page_size / mb 
+            record['mem_size']  = float(size)     * self.page_size / mb
             record['mem_rss']   = float(resident) * self.page_size / mb
             record['mem_share'] = float(share)    * self.page_size / mb
        	    #---- from Tom ---
-        except (ValueError, IOError, KeyError), e:
+        except (ValueError, IOError, KeyError) as e:
             logerr('memory_info failed: %s' % e)
 
         return record
@@ -239,15 +239,14 @@ if __name__=="__main__":
     engine = StdEngine(config)
     svc = MemoryMonitor(engine, config)
     record = svc.get_data()
-    print record
+    print(record)
 
     time.sleep(5)
     record = svc.get_data()
-    print record
+    print(record)
 
     time.sleep(5)
     record = svc.get_data()
-    print record
+    print(record)
 
     os.remove('/tmp/mem.sdb')
-
