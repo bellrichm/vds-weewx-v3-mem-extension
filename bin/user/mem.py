@@ -77,6 +77,7 @@ import resource
 import weewx
 import weeutil.weeutil
 from weewx.engine import StdService
+from weeutil.weeutil import to_bool
 
 VERSION = "0.1-rmb"
 
@@ -108,6 +109,11 @@ class MemoryMonitor(StdService):
         super(MemoryMonitor, self).__init__(engine, config_dict)
 
         d = config_dict.get('MemoryMonitor', {})
+        enable = to_bool(d.get('enable', True))
+        if not enable:
+            loginf("mem is not enabled, exiting")
+            return
+
         self.max_age = weeutil.weeutil.to_int(d.get('max_age', 2592000))
         self.page_size = resource.getpagesize()
 
