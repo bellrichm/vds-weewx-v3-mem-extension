@@ -24,6 +24,12 @@ To summarize:
   - all the credit for this one should go to Matthew/Tom.
   - any blame of course should go to me :-)
 
+Font credit:
+  skins/mem/font/DejaVuSansMono-Bold.ttf is from the DejaVu fonts project
+  (https://dejavu-fonts.github.io/) and is distributed under the Bitstream
+  Vera / DejaVu license. It is bundled so the mem skin renders consistently
+  on Linux and macOS without requiring system fonts.
+
 vinceskahan@gmail.com
 11/28/2014
 

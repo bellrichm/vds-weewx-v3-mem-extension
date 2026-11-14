@@ -17,7 +17,7 @@ def loader():
 class MemoryMonitorInstaller(ExtensionInstaller):
     def __init__(self):
         super(MemoryMonitorInstaller, self).__init__(
-            version="0.2",
+            version="0.3",
             name='mem',
             description='Collect and display process memory usage.',
             author="Vince Skahan",
@@ -44,5 +44,6 @@ class MemoryMonitorInstaller(ExtensionInstaller):
             files=[('bin/user', ['bin/user/mem.py']),
                    ('skins/mem', ['skins/mem/skin.conf',
                                    'skins/mem/index.html.tmpl',
-                                   'skins/mem/weewx.css'])]
+                                   'skins/mem/weewx.css',
+                                   'skins/mem/font/DejaVuSansMono-Bold.ttf'])]
             )

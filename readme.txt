@@ -14,16 +14,48 @@ Installation instructions:
 
 1) run the installer:
 
-setup.py install --extension extensions/mem
+   For weewx v4.10 or later:
+       weectl extension install /path/to/mem-extension
+
+   For older weewx versions:
+       setup.py install --extension extensions/mem
 
 2) restart weewx:
 
-sudo /etc/init.d/weewx stop
-sudo /etc/init.d/weewx start
+   Linux (sysvinit):
+       sudo /etc/init.d/weewx stop
+       sudo /etc/init.d/weewx start
+
+   Linux (systemd):
+       sudo systemctl restart weewx
+
+   macOS: restart weewx whichever way it was started (the weewx
+   launcher/start script or launchd).
 
 This will result in a skin called mem with a single web page that illustrates
 how to use the monitoring data.  See comments in mem.py for customization
 options.
+
+Platform support:
+
+The service collects data on both Linux and macOS.
+
+   - Linux reads /proc/<pid>/statm.
+   - macOS has no /proc, so the service uses the libproc API instead.
+     For that reason the values have a slightly different meaning:
+
+         mem_size  = physical footprint (what Activity Monitor calls "Memory")
+         mem_rss   = resident size
+         mem_share = resident pages that are not part of the physical
+                     footprint (an approximation of shared/clean pages)
+
+     macOS's virtual size is deliberately not used: it includes the dyld
+     shared-cache reservation and is typically hundreds of GB, which would
+     make the charts useless.
+
+The skin bundles the DejaVuSansMono-Bold font, so the charts look the same on
+Linux and macOS without FreeMono having to be installed. To use a different
+font, change the *_font_path entries in skins/mem/skin.conf.
 
 
 Notes:

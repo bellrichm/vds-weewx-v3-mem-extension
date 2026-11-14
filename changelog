@@ -1,4 +1,11 @@
 
+0.3 14nov2026
+* support macOS (via libproc) in addition to Linux (via /proc)
+* bundle the DejaVuSansMono-Bold font so charts render the same on Linux
+  and macOS
+* skip saving a record if memory data could not be read, instead of
+  passing None to the database
+
 0.2 29nov2014
 * use Tom's weewx.css skin for a more weewx(ish) look'n'feel
 
